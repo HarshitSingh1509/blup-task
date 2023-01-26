@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class Fields extends StatefulWidget {
   Map<String, dynamic> position;
-  Fields(this.position);
+  Function callback;
+  Fields(this.position, this.callback);
 
   @override
   State<Fields> createState() => _FieldsState();
@@ -31,8 +32,11 @@ class _FieldsState extends State<Fields> {
             positions["x"] = details.localPosition.dx;
             positions["y"] = details.localPosition.dy;
           });
+          widget.callback(false);
         },
-
+        onDragEnd: ((details) {
+          widget.callback(true);
+        }),
         child: Container(
           height: 40,
           width: 150,
